@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom'
+import { Folder, HardDrive, Upload, Download } from 'lucide-react'
 
 interface FileItem {
   id: number
@@ -10,28 +11,21 @@ interface FileItem {
 }
 
 const MOCK_FILES: FileItem[] = [
-  { id: 1, name: 'relatorio_2026.pdf', size: '2.4 MB', type: 'PDF', uploadedAt: '21/09/2026', status: 'concluído' },
-  { id: 2, name: 'foto_perfil.png',    size: '512 KB', type: 'PNG', uploadedAt: '20/09/2026', status: 'concluído' },
-  { id: 3, name: 'dados.xlsx',         size: '1.1 MB', type: 'XLSX', uploadedAt: '19/09/2026', status: 'processando' },
-  { id: 4, name: 'backup.zip',         size: '8.7 MB', type: 'ZIP', uploadedAt: '18/09/2026', status: 'erro' },
+  { id: 1, name: 'relatorio_2026.pdf', size: '2.4 MB',  type: 'PDF',  uploadedAt: '21/09/2026', status: 'concluído'   },
+  { id: 2, name: 'foto_perfil.png',    size: '512 KB',  type: 'PNG',  uploadedAt: '20/09/2026', status: 'concluído'   },
+  { id: 3, name: 'dados.xlsx',         size: '1.1 MB',  type: 'XLSX', uploadedAt: '19/09/2026', status: 'processando' },
+  { id: 4, name: 'backup.zip',         size: '8.7 MB',  type: 'ZIP',  uploadedAt: '18/09/2026', status: 'erro'        },
 ]
 
 const STATUS_STYLES: Record<FileItem['status'], string> = {
-  concluído:   'bg-green-100 text-green-700',
-  processando: 'bg-yellow-100 text-yellow-700',
-  erro:        'bg-red-100 text-red-700',
+  concluído:   'bg-gray-100 text-gray-700',
+  processando: 'bg-gray-200 text-gray-600',
+  erro:        'bg-red-100 text-red-600',
 }
 
 function FileTypeIcon({ type }: { type: string }) {
-  const colors: Record<string, string> = {
-    PDF: 'bg-red-100 text-red-600',
-    PNG: 'bg-purple-100 text-purple-600',
-    XLSX: 'bg-green-100 text-green-600',
-    ZIP: 'bg-yellow-100 text-yellow-600',
-  }
-  const cls = colors[type] ?? 'bg-gray-100 text-gray-600'
   return (
-    <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg text-xs font-bold ${cls}`}>
+    <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-xs font-bold bg-gray-100 text-gray-600">
       {type}
     </span>
   )
@@ -40,23 +34,20 @@ function FileTypeIcon({ type }: { type: string }) {
 export default function Dashboard() {
   const navigate = useNavigate()
 
-  function handleLogout() {
-    navigate('/')
-  }
-
   const stats = [
-    { label: 'Total de arquivos', value: '24', icon: '📁' },
-    { label: 'Armazenamento usado', value: '1.2 GB', icon: '💾' },
-    { label: 'Uploads este mês', value: '8', icon: '⬆️' },
-    { label: 'Downloads este mês', value: '15', icon: '⬇️' },
+    { label: 'Total de arquivos',   value: '24',     Icon: Folder    },
+    { label: 'Armazenamento usado', value: '1.2 GB', Icon: HardDrive },
+    { label: 'Uploads este mês',    value: '8',      Icon: Upload    },
+    { label: 'Downloads este mês',  value: '15',     Icon: Download  },
   ]
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+
       {/* Navbar */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm">
+      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
@@ -65,7 +56,7 @@ export default function Dashboard() {
         </div>
 
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link to="/dashboard" className="text-indigo-600 border-b-2 border-indigo-600 pb-0.5">
+          <Link to="/dashboard" className="text-gray-900 border-b-2 border-gray-900 pb-0.5">
             Dashboard
           </Link>
           <Link to="/upload" className="text-gray-500 hover:text-gray-900 transition">
@@ -75,14 +66,14 @@ export default function Dashboard() {
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-semibold text-sm">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold text-sm">
               U
             </div>
             <span className="text-sm font-medium text-gray-700">Usuário</span>
           </div>
           <button
-            onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-red-600 transition font-medium focus:outline-none focus:ring-2 focus:ring-red-300 rounded px-2 py-1"
+            onClick={() => navigate('/')}
+            className="text-sm text-gray-500 hover:text-gray-900 transition font-medium focus:outline-none focus:ring-2 focus:ring-gray-400 rounded px-2 py-1"
           >
             Sair
           </button>
@@ -90,6 +81,7 @@ export default function Dashboard() {
       </header>
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-8">
+
         {/* Page title */}
         <div className="mb-8 flex items-center justify-between">
           <div>
@@ -98,7 +90,7 @@ export default function Dashboard() {
           </div>
           <Link
             to="/upload"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+            className="inline-flex items-center gap-2 bg-gray-900 hover:bg-black text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -110,16 +102,16 @@ export default function Dashboard() {
         {/* Stats cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-              <p className="text-2xl mb-1">{stat.icon}</p>
+            <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-5">
+              <stat.Icon className="w-5 h-5 text-gray-400 mb-2" aria-hidden="true" />
               <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
               <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Recent files table */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        {/* Recent files */}
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="text-base font-semibold text-gray-900">Arquivos recentes</h2>
             <span className="text-xs text-gray-400">{MOCK_FILES.length} arquivos</span>
@@ -144,7 +136,7 @@ export default function Dashboard() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <FileTypeIcon type={file.type} />
-                        <span className="font-medium text-gray-800 truncate max-w-[180px]">{file.name}</span>
+                        <span className="font-medium text-gray-900 truncate max-w-[180px]">{file.name}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-gray-500">{file.type}</td>
@@ -157,7 +149,7 @@ export default function Dashboard() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button
-                        className="text-gray-400 hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded p-1"
+                        className="text-gray-400 hover:text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-gray-300 rounded p-1"
                         aria-label={`Baixar ${file.name}`}
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
@@ -165,7 +157,7 @@ export default function Dashboard() {
                         </svg>
                       </button>
                       <button
-                        className="ml-2 text-gray-400 hover:text-red-500 transition focus:outline-none focus:ring-2 focus:ring-red-300 rounded p-1"
+                        className="ml-2 text-gray-400 hover:text-red-500 transition focus:outline-none focus:ring-2 focus:ring-red-200 rounded p-1"
                         aria-label={`Excluir ${file.name}`}
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
@@ -185,7 +177,7 @@ export default function Dashboard() {
               <li key={file.id} className="px-4 py-4 flex items-center gap-3">
                 <FileTypeIcon type={file.type} />
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-800 truncate">{file.name}</p>
+                  <p className="font-medium text-gray-900 truncate">{file.name}</p>
                   <p className="text-xs text-gray-400">{file.size} · {file.uploadedAt}</p>
                 </div>
                 <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_STYLES[file.status]}`}>

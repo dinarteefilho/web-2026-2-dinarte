@@ -112,21 +112,19 @@ export default function Upload() {
     }
 
     setUploading(true)
-    // Simulate an async upload
     await new Promise((res) => setTimeout(res, 1500))
     setUploading(false)
     setSuccess(true)
 
-    // Redirect to dashboard after 1.5 s
     setTimeout(() => navigate('/dashboard'), 1500)
   }
 
   if (success) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col items-center gap-4 text-center max-w-sm w-full">
-          <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
+        <div className="bg-white rounded-2xl border border-gray-200 p-10 flex flex-col items-center gap-4 text-center max-w-sm w-full">
+          <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+            <svg className="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
@@ -139,10 +137,11 @@ export default function Upload() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+
       {/* Navbar */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm">
+      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
@@ -154,21 +153,21 @@ export default function Upload() {
           <Link to="/dashboard" className="text-gray-500 hover:text-gray-900 transition">
             Dashboard
           </Link>
-          <Link to="/upload" className="text-indigo-600 border-b-2 border-indigo-600 pb-0.5">
+          <Link to="/upload" className="text-gray-900 border-b-2 border-gray-900 pb-0.5">
             Upload
           </Link>
         </nav>
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-semibold text-sm">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold text-sm">
               U
             </div>
             <span className="text-sm font-medium text-gray-700">Usuário</span>
           </div>
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-gray-500 hover:text-red-600 transition font-medium focus:outline-none focus:ring-2 focus:ring-red-300 rounded px-2 py-1"
+            className="text-sm text-gray-500 hover:text-gray-900 transition font-medium focus:outline-none focus:ring-2 focus:ring-gray-400 rounded px-2 py-1"
           >
             Sair
           </button>
@@ -176,13 +175,15 @@ export default function Upload() {
       </header>
 
       <main className="flex-1 max-w-2xl mx-auto w-full px-4 sm:px-6 py-8">
+
         {/* Page title */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Enviar arquivo</h1>
           <p className="text-sm text-gray-500 mt-0.5">Faça upload de um novo arquivo para o seu espaço</p>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6">
+        <form onSubmit={handleSubmit} noValidate className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
+
           {/* Title */}
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
@@ -199,7 +200,7 @@ export default function Upload() {
               placeholder="Nome descritivo para o arquivo"
               maxLength={100}
               className={`w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition ${
-                errors.title ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-indigo-400'
+                errors.title ? 'border-red-400 focus:ring-red-200' : 'border-gray-300 focus:ring-gray-400'
               }`}
             />
             <div className="flex justify-between mt-1">
@@ -228,7 +229,7 @@ export default function Upload() {
               rows={3}
               maxLength={300}
               className={`w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 resize-none transition ${
-                errors.description ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-indigo-400'
+                errors.description ? 'border-red-400 focus:ring-red-200' : 'border-gray-300 focus:ring-gray-400'
               }`}
             />
             <div className="flex justify-between mt-1">
@@ -250,20 +251,20 @@ export default function Upload() {
             {form.file ? (
               /* Selected file preview */
               <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-4 py-3 bg-gray-50">
-                <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">{form.file.name}</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{form.file.name}</p>
                   <p className="text-xs text-gray-400">{formatBytes(form.file.size)}</p>
                 </div>
                 <button
                   type="button"
                   onClick={removeFile}
                   aria-label="Remover arquivo"
-                  className="text-gray-400 hover:text-red-500 transition focus:outline-none focus:ring-2 focus:ring-red-300 rounded p-1"
+                  className="text-gray-400 hover:text-red-500 transition focus:outline-none focus:ring-2 focus:ring-red-200 rounded p-1"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -283,13 +284,13 @@ export default function Upload() {
                 onDragLeave={handleDragLeave}
                 className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl py-10 px-6 cursor-pointer transition select-none ${
                   dragging
-                    ? 'border-indigo-400 bg-indigo-50'
+                    ? 'border-gray-500 bg-gray-100'
                     : errors.file
                     ? 'border-red-300 bg-red-50'
-                    : 'border-gray-300 bg-gray-50 hover:border-indigo-400 hover:bg-indigo-50'
+                    : 'border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-100'
                 }`}
               >
-                <svg className={`w-10 h-10 ${dragging ? 'text-indigo-500' : 'text-gray-400'}`} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+                <svg className={`w-10 h-10 ${dragging ? 'text-gray-700' : 'text-gray-400'}`} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
                 <p className="text-sm font-medium text-gray-700">
@@ -318,14 +319,14 @@ export default function Upload() {
           <div className="flex items-center justify-end gap-3 pt-2">
             <Link
               to="/dashboard"
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition px-4 py-2.5 rounded-lg border border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition px-4 py-2.5 rounded-lg border border-gray-300 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300"
             >
               Cancelar
             </Link>
             <button
               type="submit"
               disabled={uploading}
-              className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
             >
               {uploading ? (
                 <>
