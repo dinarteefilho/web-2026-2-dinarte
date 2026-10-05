@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { signIn } from 'aws-amplify/auth'
 
 interface LoginForm {
   email: string
@@ -35,6 +36,7 @@ export default function Login() {
   const [form, setForm] = useState<LoginForm>({ email: '', password: '' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitted, setSubmitted] = useState(false)
+  const [authError, setAuthError] = useState<string | null>(null)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
@@ -43,15 +45,23 @@ export default function Login() {
     if (submitted) setErrors(validate(updated))
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setSubmitted(true)
+    setAuthError(null)
     const validationErrors = validate(form)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
     }
-    navigate('/dashboard')
+    try {
+      console.log("Iniciando tentativa de login para:", form.email); // Adicione esta linha
+      await signIn({ username: form.email, password: form.password });
+      navigate('/dashboard');
+    } catch (error) {
+      console.error("ERRO DETALHADO DA AWS:", error); 
+      setAuthError('E-mail ou palavra-passe incorretos.');
+    }
   }
 
   return (
@@ -149,6 +159,13 @@ export default function Login() {
               Esqueceu a senha?
             </a>
           </div>
+
+          {/* Erro de autenticação */}
+          {authError && (
+            <p role="alert" className="text-sm text-red-500 text-center -mb-1">
+              {authError}
+            </p>
+          )}
 
           {/* Submit */}
           <button
