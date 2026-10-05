@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signIn } from 'aws-amplify/auth'
+import { GoogleLogin } from '@react-oauth/google'
 
 interface LoginForm {
   email: string
@@ -55,7 +56,7 @@ export default function Login() {
       return
     }
     try {
-      console.log("Iniciando tentativa de login para:", form.email); // Adicione esta linha
+      console.log("Iniciando tentativa de login para:", form.email);
       await signIn({ username: form.email, password: form.password });
       navigate('/dashboard');
     } catch (error) {
@@ -63,6 +64,16 @@ export default function Login() {
       setAuthError('E-mail ou palavra-passe incorretos.');
     }
   }
+
+  const handleGoogleSuccess = (credentialResponse: any) => {
+    const jwtToken = credentialResponse.credential;
+    
+    console.log("=== TOKEN JWT GERADO PELO GOOGLE ===");
+    console.log(jwtToken);
+    
+    localStorage.setItem('google_token', jwtToken);
+    navigate('/dashboard');
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -175,6 +186,25 @@ export default function Login() {
             Entrar
           </button>
         </form>
+
+        {/* Divisor Visual */}
+        <div className="relative my-5">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white px-2 text-gray-400">ou</span>
+          </div>
+        </div>
+
+        {/* Botão de Login do Google */}
+        <div className="flex justify-center w-full">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => console.log('Erro no Login com o Google')}
+            width="100%"
+          />
+        </div>
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Não tem uma conta?{' '}
