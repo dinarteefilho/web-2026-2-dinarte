@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { Folder, HardDrive, Upload, Download } from 'lucide-react'
+import ChatBotIA from './Chat'
 
 interface FileItem {
   id: number
@@ -111,7 +112,7 @@ export default function Dashboard() {
         </div>
 
         {/* Recent files */}
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-12">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="text-base font-semibold text-gray-900">Arquivos recentes</h2>
             <span className="text-xs text-gray-400">{MOCK_FILES.length} arquivos</span>
@@ -187,6 +188,12 @@ export default function Dashboard() {
             ))}
           </ul>
         </div>
+
+        {/* Chatbot IA */}
+        <section>
+          <ChatBotIA />
+        </section>
+
       </main>
     </div>
   )
