@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Upload from './pages/Upload'
 import Chat from './pages/Chat'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/perfil" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )

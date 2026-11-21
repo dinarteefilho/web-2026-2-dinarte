@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom'
+import { signOut } from 'aws-amplify/auth'
 import { Folder, HardDrive, Upload, Download } from 'lucide-react'
 import ChatBotIA from './Chat'
 
@@ -35,6 +36,16 @@ function FileTypeIcon({ type }: { type: string }) {
 export default function Dashboard() {
   const navigate = useNavigate()
 
+  // Encerra a sessão do Cognito antes de voltar ao login
+  // (sem isso, um novo login falha com "There is already a signed in user")
+  async function sair() {
+    try {
+      await signOut()
+    } finally {
+      navigate('/')
+    }
+  }
+
   const stats = [
     { label: 'Total de arquivos',   value: '24',     Icon: Folder    },
     { label: 'Armazenamento usado', value: '1.2 GB', Icon: HardDrive },
@@ -63,17 +74,20 @@ export default function Dashboard() {
           <Link to="/upload" className="text-gray-500 hover:text-gray-900 transition">
             Upload
           </Link>
+          <Link to="/perfil" className="text-gray-500 hover:text-gray-900 transition">
+            Perfil
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2">
+          <Link to="/perfil" className="flex items-center gap-2 hover:opacity-80 transition">
             <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold text-sm">
               U
             </div>
-            <span className="text-sm font-medium text-gray-700">Usuário</span>
-          </div>
+            <span className="hidden sm:inline text-sm font-medium text-gray-700">Meu perfil</span>
+          </Link>
           <button
-            onClick={() => navigate('/')}
+            onClick={sair}
             className="text-sm text-gray-500 hover:text-gray-900 transition font-medium focus:outline-none focus:ring-2 focus:ring-gray-400 rounded px-2 py-1"
           >
             Sair
