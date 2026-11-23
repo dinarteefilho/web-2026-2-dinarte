@@ -180,7 +180,7 @@ export default function ChatBotIA() {
           {(status === 'desconectado' || status === 'erro') && (
             <button
               onClick={reconectar}
-              className="text-xs font-medium text-blue-600 hover:underline"
+              className="text-xs font-medium text-gray-600 hover:text-gray-900 hover:underline"
             >
               Reconectar
             </button>
@@ -200,7 +200,7 @@ export default function ChatBotIA() {
             <div
               className={`max-w-[80%] rounded-lg p-3 ${
                 msg.autor === 'Eu'
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-gray-900 text-white'
                   : msg.autor === 'Erro'
                     ? 'bg-red-100 text-red-700'
                     : 'bg-gray-200 text-gray-800'
@@ -222,13 +222,13 @@ export default function ChatBotIA() {
           onChange={(e) => setInputTexto(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && enviarMensagem()}
           disabled={!conectado}
-          className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+          className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 disabled:bg-gray-100"
           placeholder="Escreva a sua mensagem..."
         />
         <button
           onClick={enviarMensagem}
           disabled={!conectado || aguardando}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
+          className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-black transition-colors disabled:opacity-50"
         >
           Enviar
         </button>

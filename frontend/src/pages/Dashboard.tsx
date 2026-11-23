@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { signOut } from 'aws-amplify/auth'
 import { Folder, HardDrive, Upload, Download } from 'lucide-react'
 import ChatBotIA from './Chat'
+import Avatar from './Avatar'
 
 interface FileItem {
   id: number
@@ -81,9 +82,7 @@ export default function Dashboard() {
 
         <div className="flex items-center gap-3">
           <Link to="/perfil" className="flex items-center gap-2 hover:opacity-80 transition">
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold text-sm">
-              U
-            </div>
+            <Avatar />
             <span className="hidden sm:inline text-sm font-medium text-gray-700">Meu perfil</span>
           </Link>
           <button

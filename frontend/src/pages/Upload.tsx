@@ -1,5 +1,7 @@
 import { useState, useRef, type ChangeEvent, type DragEvent, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { signOut } from 'aws-amplify/auth'
+import Avatar from './Avatar'
 
 interface UploadForm {
   title: string
@@ -53,6 +55,15 @@ function formatBytes(bytes: number): string {
 export default function Upload() {
   const navigate = useNavigate()
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Encerra a sessão do Cognito antes de voltar ao login
+  async function sair() {
+    try {
+      await signOut()
+    } finally {
+      navigate('/')
+    }
+  }
 
   const [form, setForm] = useState<UploadForm>({ title: '', description: '', file: null })
   const [errors, setErrors] = useState<FormErrors>({})
@@ -156,17 +167,18 @@ export default function Upload() {
           <Link to="/upload" className="text-gray-900 border-b-2 border-gray-900 pb-0.5">
             Upload
           </Link>
+          <Link to="/perfil" className="text-gray-500 hover:text-gray-900 transition">
+            Perfil
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold text-sm">
-              U
-            </div>
-            <span className="text-sm font-medium text-gray-700">Usuário</span>
-          </div>
+          <Link to="/perfil" className="flex items-center gap-2 hover:opacity-80 transition">
+            <Avatar />
+            <span className="hidden sm:inline text-sm font-medium text-gray-700">Meu perfil</span>
+          </Link>
           <button
-            onClick={() => navigate('/')}
+            onClick={sair}
             className="text-sm text-gray-500 hover:text-gray-900 transition font-medium focus:outline-none focus:ring-2 focus:ring-gray-400 rounded px-2 py-1"
           >
             Sair

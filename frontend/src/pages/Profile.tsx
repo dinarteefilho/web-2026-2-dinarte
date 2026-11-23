@@ -177,7 +177,7 @@ export default function PerfilUsuario() {
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">Meu perfil</h1>
-          <a href="/dashboard" className="text-sm font-medium text-blue-600 hover:underline">
+          <a href="/dashboard" className="text-sm font-medium text-gray-600 hover:text-gray-900 hover:underline">
             Voltar ao dashboard
           </a>
         </div>
@@ -245,7 +245,7 @@ export default function PerfilUsuario() {
               required
               minLength={2}
               maxLength={80}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
           </div>
 
@@ -257,7 +257,7 @@ export default function PerfilUsuario() {
               onChange={(e) => setTelefone(e.target.value)}
               maxLength={20}
               placeholder="(84) 99999-9999"
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
           </div>
 
@@ -268,14 +268,14 @@ export default function PerfilUsuario() {
               onChange={(e) => setBio(e.target.value)}
               maxLength={300}
               rows={3}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
           </div>
 
           <button
             type="submit"
             disabled={salvando}
-            className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
+            className="w-full bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-black transition-colors disabled:opacity-50"
           >
             {salvando ? 'Salvando…' : 'Salvar perfil'}
           </button>
